@@ -52,6 +52,7 @@ app.listen(port, () => {
   console.log(`Telegramm app listening on port ${port}`);
 });
 app.post('/send/orderinfo', async (req, res)=>{
+    console.log(req.body);
     sendOrderInfo(req.body.url, req.body.order);
     res.send(200);
 });
