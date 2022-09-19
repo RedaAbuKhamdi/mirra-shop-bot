@@ -33,7 +33,7 @@ const bot = new TelegramBot(token, {polling: true});
 // messages.
 bot.on('message', async (msg) => {
   console.log(msg);
-  if (msg.text.toLowerCase() == 'K1HeL2'){
+  if (msg.text == 'K1HeL2'){
     await chatId.update(msg.chat.id+'');
     console.log(chatId);
     bot.sendMessage(msg.chat.id,`Здравствуйте, ${msg.chat.first_name}! Ваш номер зарегистрирован!`);
@@ -53,8 +53,6 @@ app.listen(port, () => {
   console.log(`Telegramm app listening on port ${port}`);
 });
 app.post('/send/orderinfo', async (req, res)=>{
-    console.log('=----------------------');
-    console.log(req.body);
     sendOrderInfo(req.body.url, req.body.order);
-    res.send(200);
+    res.sendStatus(200);
 });
