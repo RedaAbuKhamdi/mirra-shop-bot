@@ -1,0 +1,14 @@
+{
+  "name": "telegramm_mirra",
+  "version": "1.0.0",
+  "description": "Bot for MirraShop",
+  "main": "telegramm_main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Reda",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0"
+  }
+}
