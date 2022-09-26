@@ -48,6 +48,11 @@ function sendOrderInfo(url, order){
     bot.sendMessage(id, `Поступил новый заказ! ${order.comment == undefined || order.comment == "" ? "" :"Есть комментарий"}\nСсылка:${url}\nСтоимость продуктов: ${order.price} ₽\nИтого к оплате: ${order.price + order.delivery_price} ₽\nЗаказчик: ${order.name}\nТелефон: ${order.phone}\nПокупатель: ${order.distro_status}\nСпособ доставки: ${order.delivery_service}\nАдрес: ${order.address}`);
   }
 }
+function send_general(msg){
+  for (id of chatId.id){
+    bot.sendMessage(id, msg);
+  }
+}
 app.listen(port, () => {
   chatId.update();
   console.log(`Telegramm app listening on port ${port}`);
@@ -55,4 +60,8 @@ app.listen(port, () => {
 app.post('/send/orderinfo', async (req, res)=>{
     sendOrderInfo(req.body.url, req.body.order);
     res.sendStatus(200);
+});
+app.post('/send/general', async (req, res)=>{
+  send_general(req.body.msg);
+  res.sendStatus(200);
 });
