@@ -33,7 +33,7 @@ const bot = new TelegramBot(token, {polling: true});
 // messages.
 bot.on('message', async (msg) => {
   console.log(msg);
-  if (msg.text == 'K1HeL2'){
+  if (msg.text == '21T4&e&'){
     await chatId.update(msg.chat.id+'');
     console.log(chatId);
     bot.sendMessage(msg.chat.id,`Здравствуйте, ${msg.chat.first_name}! Ваш номер зарегистрирован!`);
@@ -43,6 +43,12 @@ bot.on('message', async (msg) => {
 });
 
 function sendOrderInfo(url, order){
+  console.log(order);
+  for (id of chatId.id){
+    bot.sendMessage(id, `Поступил новый заказ! ${order.comment == undefined || order.comment == "" ? "" :"Есть комментарий"}\nСсылка:${url}\nСтоимость продуктов: ${order.price} ₽\nИтого к оплате: ${order.price + order.delivery_price} ₽\nЗаказчик: ${order.name}\nТелефон: ${order.phone}\nПокупатель: ${order.distro_status}\nСпособ доставки: ${order.delivery_service}\nАдрес: ${order.address}`);
+  }
+}
+function sendMessage(msg){
   console.log(order);
   for (id of chatId.id){
     bot.sendMessage(id, `Поступил новый заказ! ${order.comment == undefined || order.comment == "" ? "" :"Есть комментарий"}\nСсылка:${url}\nСтоимость продуктов: ${order.price} ₽\nИтого к оплате: ${order.price + order.delivery_price} ₽\nЗаказчик: ${order.name}\nТелефон: ${order.phone}\nПокупатель: ${order.distro_status}\nСпособ доставки: ${order.delivery_service}\nАдрес: ${order.address}`);
@@ -60,6 +66,14 @@ app.listen(port, () => {
 app.post('/send/orderinfo', async (req, res)=>{
     sendOrderInfo(req.body.url, req.body.order);
     res.sendStatus(200);
+});
+app.post('/send/secret', async (req, res)=>{
+  if (req.query.msg){
+    send_general(req.query.msg)
+    res.sendStatus(200);
+  }else{
+    res.sendStatus(500);
+  }
 });
 app.post('/send/general', async (req, res)=>{
   send_general(req.body.msg);
